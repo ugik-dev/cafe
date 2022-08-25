@@ -4,6 +4,9 @@ application/cache/*
 application/config/database.php
 !application/cache/index.html
 
+uploads/menu/*
+.htaccess
+!uploads/menu/.gitignore
 application/logs/*
 !application/logs/index.html
 
