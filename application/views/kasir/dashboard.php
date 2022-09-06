@@ -1,7 +1,36 @@
 <div class="blog-section">
     <div class="container">
         <h2 class="mb-2 pb-2">Kasir</h2>
-        <button type="button" class="btn submit-btn mt-1 mb-1" id="add_barcode"><i class="icofont-plus "></i> Barcode Baru</button>
+        <form class="form-inline mb-2" id="toolbar_form" onsubmit="return false;">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <button type="button" class="btn submit-btn mt-1 mb-1" id="add_barcode"><i class="icofont-plus "></i> Barcode Baru</button>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class=" row">
+                            <label for="date_end" class=" col-form-label">Tanggal</label>
+                            <div class="col-lg-6">
+                                <input type="date" class="form-control" id="date" value="<?= date('Y-m-d') ?>">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <div class=" row">
+                            <label for="date_end" class=" col-form-label">Status</label>
+                            <div class="col-lg-6">
+                                <select class="form-control" id="status">
+                                    <option>Semua</option>
+                                    <option value="0">Belum Bayar</option>
+                                    <option value="1">Sudah Bayar</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
         <br>
         <div class="table-responsive">
             <table id="FDataTable" class="table table-bordered table-hover" style="padding:0px">
@@ -44,12 +73,28 @@
                 className: 'dt-body-right'
             }],
         });
+        var toolbar = {
+            'form': $('#toolbar_form'),
+            'date': $('#toolbar_form').find('#date'),
+            'status': $('#toolbar_form').find('#status'),
+        }
+        toolbar.date.on('change', () => {
+            getListPesanan()
+        });
+        toolbar.status.on('change', () => {
+            getListPesanan()
+        });
+
         getListPesanan()
 
         function getListPesanan() {
             return $.ajax({
                 url: `<?php echo site_url('Kasir/getListPesanan/') ?>`,
-                'type': 'POST',
+                'type': 'get',
+                data: {
+                    'date': toolbar.date.val(),
+                    'status': toolbar.status.val()
+                },
                 success: function(data) {
                     var json = JSON.parse(data);
                     if (json['error']) {
@@ -112,7 +157,13 @@
                                 <a class="konfirmasi-bayar dropdown-item" data-id='${user['id_ses']}'><i class='fa fa-pencil'></i>Konfirmasi Bayar</a>
                             `;
                 var openDetail = `
-                                <a class="btn btn-success" href='<?= base_url('kasir/cart/') ?>${user['id_ses']}'><i class='fa fa-trash'></i>Open</a>
+                                <a class="btn btn-success" href='<?= base_url('kasir/cart/') ?>${user['id_ses']}' title="Open"><i class="icofont-ui-note mr-1"></i>Open</a>
+                            `;
+                var cetakQR = `
+                                <a target="_blank" class="btn btn-info" href='<?= base_url('kasir/qrcode/') ?>${user['id_ses']}' title="Cetak QR Code"><i class="icofont-qr-code"></i></a>
+                            `;
+                var pesanManual = `
+                                <a class="btn btn-info" href='<?= base_url('order/') ?>${user['token']}' title="Pesan Manual by Kasir"><i class="icofont-restaurant"></i></a>
                             `;
                 var button = `
                                 <div class="btn-group" opd="group">
@@ -124,10 +175,14 @@
                                 </div>
                             `;
                 test = `
-                <a href='<?= base_url('order/') ?>` + user['token'] + `' > test btn</a>
-                <a href='<?= base_url('kasir/qrcode/') ?>` + user['id_ses'] + `' > cetak qr</a>
+                <a href='<?= base_url('order/') ?>` + user['token'] + `' > ` + user['token'] + `</a>
+                <a href='<?= base_url('kasir/qrcode/') ?>` + user['id_ses'] + `' >` + user['token'] + `</a>
                 `;
-                renderData.push([user['waktu'], user['token'] + test, statusPembayaran(user['ses_status']), user['nama_meja'], user['nama_pemesan'], user['total_qyt'], convertToRupiah(user['total_harga']), openDetail]);
+
+                pesan_by_kasir = `
+                <a href='<?= base_url('order/') ?>` + user['token'] + `' > ` + user['token'] + `</a>
+                `;
+                renderData.push([user['waktu'], user['token'] + test, statusPembayaran(user['ses_status']), user['nama_meja'], user['nama_pemesan'], user['total_qyt'], convertToRupiah(user['total_harga']), openDetail + cetakQR + pesanManual]);
             });
             FDataTable.clear().rows.add(renderData).draw('full-hold');
             total_harga.html(convertToRupiah(total));

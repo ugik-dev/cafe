@@ -18,10 +18,10 @@
                             <thead>
                                 <tr>
                                     <th style="width: 7%; text-align:center!important">ID</th>
-                                    <!-- <th style="width: 24%; text-align:center!important">Username</th> -->
+                                    <!-- <th style="width: 24%; text-align:center!important">Mejaname</th> -->
                                     <th style="width: 24%; text-align:center!important">Nama</th>
-                                    <th style="width: 16%; text-align:center!important">Code</th>
-                                    <th style="width: 16%; text-align:center!important">url</th>
+                                    <!-- <th style="width: 16%; text-align:center!important">Code</th>
+                                    <th style="width: 16%; text-align:center!important">url</th> -->
                                     <th style="width: 16%; text-align:center!important">Status</th>
                                     <th style="width: 5%; text-align:center!important">Action</th>
                                 </tr>
@@ -50,10 +50,10 @@
                         <label for="nama_meja">Nama</label>
                         <input type="text" placeholder="Nama" class="form-control" id="nama_meja" name="nama_meja" required="required">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="code">Generate Code</label>
                         <input type="text" placeholder="Kosong akan melakukan generate otomatis" class="form-control" id="code" name="code">
-                    </div>
+                    </div> -->
 
                     <div class="form-group">
                         <label for="status">Status</label>
@@ -91,7 +91,7 @@
             ]
         });
 
-        var UserModal = {
+        var MejaModal = {
             'self': $('#user_modal'),
             'info': $('#user_modal').find('.info'),
             'form': $('#user_modal').find('#user_form'),
@@ -99,12 +99,12 @@
             'saveEditBtn': $('#user_modal').find('#save_edit_btn'),
             'idMeja': $('#user_modal').find('#id_meja'),
             'nama_meja': $('#user_modal').find('#nama_meja'),
-            'code': $('#user_modal').find('#code'),
+            // 'code': $('#user_modal').find('#code'),
             'status': $('#user_modal').find('#status'),
         }
 
         var dataRole = {}
-        var dataUser = {}
+        var dataMeja = {}
 
         var swalSaveConfigure = {
             title: "Konfirmasi simpan",
@@ -136,7 +136,7 @@
         });
 
         // toolbar.id_role.on('change', (e) => {
-        //     UserModal.id_role.attr('readonly', !empty(toolbar.id_role.val()));
+        //     MejaModal.id_role.attr('readonly', !empty(toolbar.id_role.val()));
         //     getAllMeja();
         // });
 
@@ -150,16 +150,16 @@
                     if (json['error']) {
                         return;
                     }
-                    dataUser = json['data'];
-                    renderUser(dataUser);
+                    dataMeja = json['data'];
+                    renderMeja(dataMeja);
                 },
                 error: function(e) {}
             });
         }
 
-        function renderUser(data) {
+        function renderMeja(data) {
             if (data == null || typeof data != "object") {
-                console.log("User::UNKNOWN DATA");
+                console.log("Meja::UNKNOWN DATA");
                 return;
             }
             var i = 0;
@@ -167,56 +167,56 @@
             var renderData = [];
             Object.values(data).forEach((user) => {
                 var editButton = `
-                                    <a class="edit dropdown-item" data-id='${user['id_meja']}'><i class='fa fa-pencil'></i> Edit User</a>
+                                    <a class="edit dropdown-item" data-id='${user['id_meja']}'><i class='fa fa-pencil'></i> Edit Meja</a>
                                 `;
-                var deleteButton = `
-                                    <a class="delete dropdown-item" data-id='${user['id_meja']}'><i class='fa fa-trash'></i> Hapus User</a>
-                                `;
+                // var deleteButton = `
+                //                     <a class="delete dropdown-item" data-id='${user['id_meja']}'><i class='fa fa-trash'></i> Hapus Meja</a>
+                //                 `;
                 var button = `
                                     <div class="btn-group" opd="group">
                                     <button id="action" type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class='fa fa-bars'></i></button>
                                     <div class="dropdown-menu" aria-labelledby="action">
                                         ${editButton}
-                                        ${deleteButton}
+                                       
                                     </div>
                                     </div>
                                 `;
-                renderData.push([user['id_meja'], user['nama_meja'], user['code'], '<?= base_url() ?>order/' + user['code'], user['status'] == 1 ? 'Active' : 'Non Active', button]);
+                renderData.push([user['id_meja'], user['nama_meja'], user['status'] == 1 ? 'Active' : 'Non Active', button]);
             });
             FDataTable.clear().rows.add(renderData).draw('full-hold');
         }
 
-        function resetUserModal() {
-            UserModal.form.trigger('reset');
+        function resetMejaModal() {
+            MejaModal.form.trigger('reset');
         }
 
         toolbar.newBtn.on('click', (e) => {
-            resetUserModal();
-            UserModal.self.modal('show');
-            UserModal.addBtn.show();
-            UserModal.saveEditBtn.hide();
+            resetMejaModal();
+            MejaModal.self.modal('show');
+            MejaModal.addBtn.show();
+            MejaModal.saveEditBtn.hide();
         });
 
         FDataTable.on('click', '.edit', function() {
-            resetUserModal();
-            UserModal.self.modal('show');
-            UserModal.addBtn.hide();
-            UserModal.saveEditBtn.show();
+            resetMejaModal();
+            MejaModal.self.modal('show');
+            MejaModal.addBtn.hide();
+            MejaModal.saveEditBtn.show();
 
 
-            var currentData = dataUser[$(this).data('id')];
-            UserModal.idMeja.val(currentData['id_meja']);
-            UserModal.nama_meja.val(currentData['nama_meja']);
-            UserModal.code.val(currentData['code']);
-            UserModal.status.val(currentData['status']);
+            var currentData = dataMeja[$(this).data('id')];
+            MejaModal.idMeja.val(currentData['id_meja']);
+            MejaModal.nama_meja.val(currentData['nama_meja']);
+            MejaModal.code.val(currentData['code']);
+            MejaModal.status.val(currentData['status']);
         });
 
-        UserModal.form.submit(function(event) {
+        MejaModal.form.submit(function(event) {
             event.preventDefault();
-            var isAdd = UserModal.addBtn.is(':visible');
+            var isAdd = MejaModal.addBtn.is(':visible');
             var url = "<?= site_url('Admin/') ?>";
             url += isAdd ? "addMeja" : "editMeja";
-            var button = isAdd ? UserModal.addBtn : UserModal.saveEditBtn;
+            var button = isAdd ? MejaModal.addBtn : MejaModal.saveEditBtn;
             Swal.fire({
                 title: 'Loading!',
                 html: 'Harap tunggu  <b></b> beberapa saat.',
@@ -231,7 +231,7 @@
                 $.ajax({
                     url: url,
                     'type': 'POST',
-                    data: UserModal.form.serialize(),
+                    data: MejaModal.form.serialize(),
                     success: function(data) {
                         buttonIdle(button);
                         var json = JSON.parse(data);
@@ -240,14 +240,14 @@
                             return;
                         }
                         var user = json['data']
-                        dataUser[user['id_meja']] = user;
+                        dataMeja[user['id_meja']] = user;
                         Swal.fire({
                             title: 'Berhasil!',
                             html: 'Data berhasil disimpan.',
                             icon: 'success',
                         })
-                        renderUser(dataUser);
-                        UserModal.self.modal('hide');
+                        renderMeja(dataMeja);
+                        MejaModal.self.modal('hide');
                     },
                     error: function(e) {}
                 });
@@ -262,7 +262,7 @@
             //         return;
             //     }
             //     $.ajax({
-            //         url: "<?= site_url('UserController/deleteUser') ?>",
+            //         url: "<?= site_url('MejaController/deleteMeja') ?>",
             //         'type': 'POST',
             //         data: {
             //             'id_meja': id
@@ -273,9 +273,9 @@
             //                 swal("Delete Gagal", json['message'], "error");
             //                 return;
             //             }
-            //             delete dataUser[id];
+            //             delete dataMeja[id];
             //             swal("Delete Berhasil", "", "success");
-            //             renderUser(dataUser);
+            //             renderMeja(dataMeja);
             //         },
             //         error: function(e) {}
             //     });

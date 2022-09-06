@@ -74,7 +74,7 @@ class Kasir extends CI_Controller
             // if (!empty($this->session->userdata()['pemesanan'])) {
             //     $id_ses = $this->session->userdata()['pemesanan']['id_ses'];
             if (empty($filter['id_ses']))
-                $pesanan_anda =   $this->GeneralModel->getAllPesanan2();
+                $pesanan_anda =   $this->GeneralModel->getAllPesanan2($filter);
             else
                 $pesanan_anda =   $this->GeneralModel->getAllPesanan($filter)[$filter['id_ses']];
             echo json_encode(['error' => false, 'data' => $pesanan_anda]);

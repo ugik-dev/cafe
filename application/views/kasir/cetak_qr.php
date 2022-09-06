@@ -144,3 +144,13 @@
         </center>
     </div>
 </div>
+<script type="text/javascript">
+    setTimeout(function() {
+        window.print();
+    }, 500);
+    window.onfocus = function() {
+        setTimeout(function() {
+            window.close();
+        }, 10);
+    }
+</script>

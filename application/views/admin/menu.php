@@ -18,7 +18,7 @@
                             <thead>
                                 <tr>
                                     <th style="width: 7%; text-align:center!important">ID</th>
-                                    <!-- <th style="width: 24%; text-align:center!important">Username</th> -->
+                                    <!-- <th style="width: 24%; text-align:center!important">Menuname</th> -->
                                     <th style="width: 24%; text-align:center!important">Nama</th>
                                     <th style="width: 16%; text-align:center!important">Harga</th>
                                     <th style="width: 16%; text-align:center!important">Gambar</th>
@@ -103,7 +103,7 @@
             ]
         });
 
-        var UserModal = {
+        var MenuModal = {
             'self': $('#user_modal'),
             'info': $('#user_modal').find('.info'),
             'form': $('#user_modal').find('#user_form'),
@@ -119,7 +119,7 @@
         }
 
         var dataRole = {}
-        var dataUser = {}
+        var dataMenu = {}
 
         var swalSaveConfigure = {
             title: "Konfirmasi simpan",
@@ -161,8 +161,8 @@
                     if (json['error']) {
                         return;
                     }
-                    dataUser = json['data'];
-                    renderUser(dataUser);
+                    dataMenu = json['data'];
+                    renderMenu(dataMenu);
                 },
                 error: function(e) {}
             });
@@ -179,7 +179,7 @@
                         return;
                     }
                     data = json['data'];
-                    // renderFilterKategori(dataUser);
+                    // renderFilterKategori(dataMenu);
                     renderSelectionKategori(data);
                 },
                 error: function(e) {}
@@ -187,13 +187,13 @@
         }
 
         function renderSelectionKategori(data) {
-            UserModal.id_kategori.empty();
-            UserModal.id_kategori.append($('<option>', {
+            MenuModal.id_kategori.empty();
+            MenuModal.id_kategori.append($('<option>', {
                 value: "",
                 text: "-- Pilih Kategori --"
             }));
             Object.values(data).forEach((d) => {
-                UserModal.id_kategori.append($('<option>', {
+                MenuModal.id_kategori.append($('<option>', {
                     value: d['id_kategori'],
                     text: d['id_kategori'] + ' :: ' + d['nama_kategori'],
                 }));
@@ -207,9 +207,9 @@
         }
 
 
-        function renderUser(data) {
+        function renderMenu(data) {
             if (data == null || typeof data != "object") {
-                console.log("User::UNKNOWN DATA");
+                console.log("Menu::UNKNOWN DATA");
                 return;
             }
             var i = 0;
@@ -217,10 +217,10 @@
             var renderData = [];
             Object.values(data).forEach((user) => {
                 var editButton = `
-                                    <a class="edit dropdown-item" data-id='${user['id_menu']}'><i class='fa fa-pencil'></i> Edit User</a>
+                                    <a class="edit dropdown-item" data-id='${user['id_menu']}'><i class='fa fa-pencil'></i> Edit Menu</a>
                                 `;
                 var deleteButton = `
-                                    <a class="delete dropdown-item" data-id='${user['id_menu']}'><i class='fa fa-trash'></i> Hapus User</a>
+                                    <a class="delete dropdown-item" data-id='${user['id_menu']}'><i class='fa fa-trash'></i> Hapus Menu</a>
                                 `;
                 var button = `
                                     <div class="btn-group" opd="group">
@@ -236,31 +236,31 @@
             FDataTable.clear().rows.add(renderData).draw('full-hold');
         }
 
-        function resetUserModal() {
-            UserModal.form.trigger('reset');
+        function resetMenuModal() {
+            MenuModal.form.trigger('reset');
         }
 
         toolbar.newBtn.on('click', (e) => {
-            resetUserModal();
-            UserModal.self.modal('show');
-            UserModal.addBtn.show();
-            UserModal.saveEditBtn.hide();
+            resetMenuModal();
+            MenuModal.self.modal('show');
+            MenuModal.addBtn.show();
+            MenuModal.saveEditBtn.hide();
         });
 
         FDataTable.on('click', '.edit', function() {
-            resetUserModal();
-            UserModal.self.modal('show');
-            UserModal.addBtn.hide();
-            UserModal.saveEditBtn.show();
+            resetMenuModal();
+            MenuModal.self.modal('show');
+            MenuModal.addBtn.hide();
+            MenuModal.saveEditBtn.show();
 
 
-            var currentData = dataUser[$(this).data('id')];
+            var currentData = dataMenu[$(this).data('id')];
             console.log(currentData)
-            UserModal.idMenu.val(currentData['id_menu']);
-            UserModal.nama_menu.val(currentData['nama_menu']);
-            UserModal.harga.val(currentData['harga']);
-            UserModal.id_kategori.val(currentData['id_kategori']);
-            UserModal.status.val(currentData['status']);
+            MenuModal.idMenu.val(currentData['id_menu']);
+            MenuModal.nama_menu.val(currentData['nama_menu']);
+            MenuModal.harga.val(currentData['harga']);
+            MenuModal.id_kategori.val(currentData['id_kategori']);
+            MenuModal.status.val(currentData['status']);
         });
 
         // var dengan_rupiah = document.getElementById('dengan-rupiah');
@@ -268,12 +268,12 @@
         //     dengan_rupiah.value = formatRupiah(this.value, 'Rp. ');
         // });
 
-        UserModal.form.submit(function(event) {
+        MenuModal.form.submit(function(event) {
             event.preventDefault();
-            var isAdd = UserModal.addBtn.is(':visible');
+            var isAdd = MenuModal.addBtn.is(':visible');
             var url = "<?= site_url('Admin/') ?>";
             url += isAdd ? "addMenu" : "editMenu";
-            var button = isAdd ? UserModal.addBtn : UserModal.saveEditBtn;
+            var button = isAdd ? MenuModal.addBtn : MenuModal.saveEditBtn;
             Swal.fire({
                 title: 'Loading!',
                 html: 'Harap tunggu  <b></b> beberapa saat.',
@@ -287,7 +287,7 @@
                 $.ajax({
                     url: url,
                     'type': 'POST',
-                    data: new FormData(UserModal.form[0]),
+                    data: new FormData(MenuModal.form[0]),
                     contentType: false,
                     processData: false,
                     success: function(data) {
@@ -298,14 +298,14 @@
                             return;
                         }
                         var user = json['data']
-                        dataUser[user['id_menu']] = user;
+                        dataMenu[user['id_menu']] = user;
                         Swal.fire({
                             title: 'Berhasil!',
                             html: 'Data berhasil disimpan.',
                             icon: 'success',
                         })
-                        renderUser(dataUser);
-                        UserModal.self.modal('hide');
+                        renderMenu(dataMenu);
+                        MenuModal.self.modal('hide');
                     },
                     error: function(e) {}
                 });
@@ -320,7 +320,7 @@
             //         return;
             //     }
             //     $.ajax({
-            //         url: "<?= site_url('UserController/deleteUser') ?>",
+            //         url: "<?= site_url('MenuController/deleteMenu') ?>",
             //         'type': 'POST',
             //         data: {
             //             'id_menu': id
@@ -331,9 +331,9 @@
             //                 swal("Delete Gagal", json['message'], "error");
             //                 return;
             //             }
-            //             delete dataUser[id];
+            //             delete dataMenu[id];
             //             swal("Delete Berhasil", "", "success");
-            //             renderUser(dataUser);
+            //             renderMenu(dataMenu);
             //         },
             //         error: function(e) {}
             //     });

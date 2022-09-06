@@ -1,6 +1,41 @@
 <div class="blog-section">
+
+
     <div class="container">
-        <h2>Kasir</h2>
+        <h2>Laporan Kasir</h2>
+        <!-- <div class="ibox ssection-container">
+            <div class="ibox-content"> -->
+        <form class="form-inline mb-2" id="toolbar_form" onsubmit="return false;">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class=" row">
+                            <label for="date_start" class=" col-form-label">Dari Tanggal</label>
+                            <?php
+                            $cur_date = date('Y-m-d');
+                            $cur_date = strtotime($cur_date);
+                            $cur_date = strtotime("-7 day", $cur_date);
+                            $cur_date  = date('Y-m-d', $cur_date); ?>
+                            <div class="col-lg-6">
+                                <input type="date" class="form-control" id="date_start" value="<?= $cur_date ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class=" row">
+                            <label for="date_end" class=" col-form-label">Sampai Tanggal</label>
+                            <div class="col-lg-6">
+                                <input type="date" class="form-control" id="date_end" value="<?= date('Y-m-d') ?>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- <select class="form-control mr-sm-2" name="id_role" id="id_role"></select> -->
+        <!-- <button type="button" class="btn btn-success my-1 mr-sm-2" id="new_btn" disabled="disabled"><i class="fal fa-plus"></i> Tambah User Baru</button> -->
+        <!-- </div>
+        </div> -->
         <div class="table-responsive">
             <table id="FDataTable" class="table table-bordered table-hover" style="padding:0px">
                 <thead>
@@ -42,12 +77,29 @@
             //        [0, "desc"]
             //    ]
         });
+
+        var toolbar = {
+            'form': $('#toolbar_form'),
+            'date_start': $('#toolbar_form').find('#date_start'),
+            'date_end': $('#toolbar_form').find('#date_end'),
+        }
+        toolbar.date_start.on('change', () => {
+            getListPesanan()
+        })
+        toolbar.date_end.on('change', () => {
+            getListPesanan()
+        })
+
         getListPesanan()
 
         function getListPesanan() {
             return $.ajax({
                 url: `<?php echo site_url('Kasir/getListPesanan/') ?>`,
-                'type': 'POST',
+                'type': 'get',
+                data: {
+                    date_start: toolbar.date_start.val(),
+                    date_end: toolbar.date_end.val()
+                },
                 success: function(data) {
                     var json = JSON.parse(data);
                     if (json['error']) {

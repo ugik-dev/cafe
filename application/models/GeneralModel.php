@@ -106,6 +106,8 @@ class GeneralModel extends CI_Model
 
     public function getAllPesanan2($filter = [], $key = false)
     {
+        // echo (isset($filter['status']));
+        // die();
         $this->db->select("u.*,ud.nama as nama_dapur,m.nama_meja, sum(qyt) as total_qyt,sum(qyt*harga) as total_harga");
 
         $this->db->from('ses_pemesanan as u');
@@ -115,6 +117,16 @@ class GeneralModel extends CI_Model
         $this->db->join('menu as mn', 'p.id_menu = mn.id_menu', 'LEFT');
         $this->db->group_by('u.id_ses');
         if (!empty($filter['id_ses'])) $this->db->where('u.id_ses', $filter['id_ses']);
+        if (isset($filter['status'])) {
+            if ($filter['status'] == '0') $this->db->where('u.ses_status', '0');
+            if ($filter['status'] == '1') $this->db->where('u.ses_status', '1');
+        }
+        if (!empty($filter['date_start'])) $this->db->where('u.waktu >= "' . $filter['date_start'] . ' 00:00:00"');
+        if (!empty($filter['date_end'])) $this->db->where('u.waktu <= "' . $filter['date_end'] . ' 23:59:59"');
+        if (!empty($filter['date'])) {
+            $this->db->where('u.waktu >= "' . $filter['date'] . ' 00:00:00"');
+            $this->db->where('u.waktu <= "' . $filter['date'] . ' 23:59:59"');
+        }
         $res = $this->db->get();
         if ($key) return $res->result_array();
         else
