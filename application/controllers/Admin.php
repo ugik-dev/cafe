@@ -173,7 +173,6 @@ class Admin extends CI_Controller
         try {
             $this->SecurityModel->userOnlyGuard(TRUE);
             if (!empty($_FILES['file_gambar']['name'])) {
-                echo 'ada ';
                 $config['upload_path'] = 'uploads/menu';
                 $config['allowed_types'] = 'jpg|jpeg|png|gif';
                 $config['max_size'] = '1000'; // max_size in kb 
