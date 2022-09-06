@@ -196,6 +196,15 @@ function statusPesanan(status) {
 	else if (status == "3")
 		return `<i class='icofont-close-circled text-danger'> Dibatalkan</i>`;
 }
+
+function statusPembayaran(status) {
+	if (status == "0")
+		return `<i class='font-sanicod-clock text-warning'>Belum Bayar </i>`;
+	else if (status == "1")
+		return `<i class='icofont-check-circled text-success'> Sudah Bayar </i>`;
+	else if (status == "3")
+		return `<i class='icofont-close-circled text-danger'> Dibatalkan</i>`;
+}
 function statusSession(status) {
 	if (status == "0")
 		return "<i class='font-sanicod-clock text-danger'> Belum dibayar</i>";

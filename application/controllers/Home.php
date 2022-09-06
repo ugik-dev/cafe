@@ -32,10 +32,12 @@ class Home extends CI_Controller
     }
     public function order_process()
     {
-        if (empty($this->session->userdata()['pemesanan'])) {
-            echo 'ses ada';
-            $post = $this->input->post();
-            if (!empty($post)) {
+        $post = $this->input->post();
+        if (!empty($post)) {
+            $dataSess = $this->GeneralModel->cekToken(['date' => date('Y-m-d'), 'token' => $post['token']]);
+            if (!empty($dataSess)) {
+                // die();
+
                 $this->load->library('user_agent');
                 if ($this->agent->is_browser()) {
                     $agent = $this->agent->browser() . ' ' . $this->agent->version();
@@ -52,27 +54,55 @@ class Home extends CI_Controller
                     'nama_pemesan' => $post['nama_pemesan'],
                     'id_meja' => $post['id_meja'],
                     'ip_address' => $this->input->ip_address(),
-                    'mobile_type' => $mobile_type
+                    'mobile_type' => $mobile_type,
+                    'token' => $dataSess[0]['token'],
+                    'id_ses' => $dataSess[0]['id_ses']
                 ];
-                $id_ses = $this->GeneralModel->addSessionPemesanan($data_pemesan);
-                $data_pemesan['id_ses'] = $id_ses;
-                // $data_session = $this->session->userdata();
+                $this->GeneralModel->editSessionPemesanan($data_pemesan);
+                // echo json_encode($this->session->userdata('pemesanan'));
+                // $data_pemesan['id_ses'] = $id_ses;
+                $this->session->unset_userdata('pemesanan'); // $data_session = $this->session->userdata();
                 $this->session->set_userdata(['pemesanan' => $data_pemesan]);
+                // echo json_encode($this->session->userdata('pemesanan'));
                 redirect(base_url('order'));
             } else {
-                redirect(base_url());
+                // redirect(base_url('order'));
+                echo "Session tidak ada atau tidak expired";
             }
         } else {
             $data_sess = $this->session->userdata()['pemesanan'];
             $data_sess = $this->GeneralModel->getSesPemesanan(['id_ses' => $data_sess['id_ses']])[$data_sess['id_ses']];
-            $data = [
-                'page' => '/pages/pilih_menu',
-                'dataContent' => [
-                    'dataSes' => $data_sess
-                ]
-            ];
+            // echo json_encode($data_sess);
+            // die();
+            if ($data_sess['status'] != 1)
+                $data = [
+                    'page' => 'pages/pilih_menu',
+                    'dataContent' => [
+                        'dataSes' => $data_sess
+                    ]
+                ];
+            else {
+                $data = [
+                    'page' => '/pages/error',
+                    'dataContent' => [
+                        'message' => "Pesanan anda sudah dibayar, silahkan meminta qrcode baru untuk peemesanan baru..",
+                        'button' => '<a href=' . base_url('cart') . ' class="book-now text-center"><i class="icofont-double-left"></i>Cart</a>'
+                    ]
+                ];
+            }
             $this->load->view('template/index', $data);
         }
+        // } else {
+        //     $data_sess = $this->session->userdata()['pemesanan'];
+        //     $data_sess = $this->GeneralModel->getSesPemesanan(['id_ses' => $data_sess['id_ses']])[$data_sess['id_ses']];
+        //     $data = [
+        //         'page' => '/pages/pilih_menu',
+        //         'dataContent' => [
+        //             'dataSes' => $data_sess
+        //         ]
+        //     ];
+        //     $this->load->view('template/index', $data);
+        // }
 
         // var_dump()
     }
@@ -144,15 +174,30 @@ class Home extends CI_Controller
     {
         // var_dump($this->session->userdata());
         $this->load->model('MejaModel');
-        $dataMeja = $this->MejaModel->getAllMeja(['code' => $code, 'limit' => 1], false);
-        if (!empty($dataMeja)) {
-            // var_dump($dataMeja[0]);
-            $data = [
-                'page' => '/pages/input_name',
-                'dataContent' => [
-                    'dataMeja' => $dataMeja[0]
-                ]
-            ];
+        $dataSess = $this->GeneralModel->cekToken(['date' => date('Y-m-d'), 'token' => $code]);
+        $meja = $this->MejaModel->getAllMeja();
+        if (!empty($dataSess)) {
+            if (!empty($dataSess[0]['id_meja'] && !empty($dataSess[0]['nama_pemesan']))) {
+                $data_pemesan = [
+                    'nama_pemesan' => $dataSess[0]['nama_pemesan'],
+                    'id_meja' => $dataSess[0]['id_meja'],
+                    'ip_address' => $dataSess[0]['ip_address'],
+                    'mobile_type' => $dataSess[0]['mobile_type'],
+                    'token' => $dataSess[0]['token'],
+                    'id_ses' => $dataSess[0]['id_ses']
+                ];
+                $this->session->unset_userdata('pemesanan'); // $data_session = $this->session->userdata();
+                $this->session->set_userdata(['pemesanan' => $data_pemesan]);
+                redirect('cart');
+            } else {
+                $data = [
+                    'page' => '/pages/input_name',
+                    'dataContent' => [
+                        'dataSes' => $dataSess[0],
+                        'dataMeja' => $meja
+                    ]
+                ];
+            }
         } else {
             $data = [
                 'page' => '/pages/error',
@@ -160,13 +205,6 @@ class Home extends CI_Controller
             ];
         }
         $this->load->view('template/index', $data);
-        // $data = [
-        //     'page' => '/pages/input_name',
-        //     'dataContent' => [
-        // 'nama_meja' => $id
-        //     ]
-        // ];
-        // $this->load->view('template/index', $data);
     }
 
     public function pilih_menu()

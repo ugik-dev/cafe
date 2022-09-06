@@ -97,11 +97,12 @@
                      <tr>
                          <!-- <th style="width: 7%; text-align:center!important">ID</th> -->
                          <!-- <th style="width: 24%; text-align:center!important">Username</th> -->
-                         <th style="width: 24%; text-align:center!important">Menu</th>
-                         <th style="width: 16%; text-align:center!important">Status</th>
-                         <th style="width: 16%; text-align:center!important">Qyt</th>
-                         <th style="width: 16%; text-align:center!important">Harga</th>
-                         <th style="width: 16%; text-align:center!important">Jumlah</th>
+                         <th style="width: 17%; text-align:center!important">Menu</th>
+                         <th style="width: 17%; text-align:center!important">Cook</th>
+                         <th style="width: 1%; text-align:center!important">Status</th>
+                         <th style="width: 1%; text-align:center!important">Qyt</th>
+                         <th style="width: 17%; text-align:center!important">Harga</th>
+                         <th style="width: 17%; text-align:center!important">Jumlah</th>
                          <!-- <th style="width: 16%; text-align:center!important">Status</th>
                            <th style="width: 5%; text-align:center!important">Action</th> -->
                      </tr>
@@ -109,23 +110,23 @@
                  <tbody></tbody>
                  <thead>
                      <tr>
-                         <th colspan="4">Sub Total</th>
+                         <th colspan="5" style="text-align: right">Sub Total</th>
                          <th colspan="1" style="text-align: right" id="sub_total"></th>
                      </tr>
                      <tr>
-                         <th colspan="4">Pajak 10%</th>
-                         <th colspan="1" style="text-align: right" id="pajak"></th>
+                         <th colspan="5" style="text-align: right">Pajak 10%</th>
+                         <th colspan="5" style="text-align: right" id="pajak"></th>
                      </tr>
                      <tr>
-                         <th colspan="4">Total </th>
-                         <th colspan="1" style="text-align: right" id="total_harga"></th>
+                         <th colspan="5" style="text-align: right">Total </th>
+                         <th colspan="5" style="text-align: right" id="total_harga"></th>
                      </tr> <?php if ($dataContent['dataSes']['ses_status'] == 1) { ?>
                          <tr>
-                             <th colspan="4"> Dibayar</th>
+                             <th colspan="5" style="text-align: right"> Dibayar</th>
                              <th style="text-align: right"><?= number_format($dataContent['dataSes']['uang_diterima']) ?></th>
                          </tr>
                          <tr>
-                             <th colspan="4">Kembalian</th>
+                             <th colspan="5" style="text-align: right">Kembalian</th>
                              <th style="text-align: right"><?= number_format($dataContent['dataSes']['uang_diterima'] - $dataContent['dataSes']['total_tagihan']) ?></th>
                          </tr>
                      <?php } ?>
@@ -198,7 +199,7 @@
              //    'order': false,
              autoFill: true,
              columnDefs: [{
-                 targets: [3, 4],
+                 targets: [5, 4],
                  className: 'dt-body-right'
              }],
              "dom": ''
@@ -251,7 +252,7 @@
                  //             `;
                  if (user['status_pesanan'] != 3)
                      var_sub_total = (user['harga_pesanan'] * user['qyt']) + var_sub_total;
-                 renderData.push([user['nama_pesanan'], statusPesanan(user['status_pesanan']), user['qyt'], convertToRupiahStatus(user['harga_pesanan'], user['status_pesanan']), convertToRupiahStatus(user['harga_pesanan'] * user['qyt'], user['status_pesanan'])]);
+                 renderData.push([user['nama_pesanan'], user['nama_dapur'], statusPesanan(user['status_pesanan']), user['qyt'], convertToRupiahStatus(user['harga_pesanan'], user['status_pesanan']), convertToRupiahStatus(user['harga_pesanan'] * user['qyt'], user['status_pesanan'])]);
              });
              FDataTable.clear().rows.add(renderData).draw('full-hold');
              var_pajak = 0.1 * var_sub_total;

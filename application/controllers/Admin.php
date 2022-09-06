@@ -6,7 +6,7 @@ class Admin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(array('SecurityModel', 'UserModel', 'MejaModel', 'MenuModel'));
+        $this->load->model(array('SecurityModel', 'UserModel', 'MejaModel', 'MenuModel', 'GeneralModel'));
         // var_dump($this->session->userdata());
         $this->SecurityModel->roleOnlyGuard('admin');
     }
@@ -52,6 +52,25 @@ class Admin extends CI_Controller
         $this->load->view('template_user/index', $data);
     }
     // function
+    public function laporan()
+    {
+        $data = [
+            'page' => 'admin/laporan_kasir'
+        ];
+        $this->load->view('template_user/index', $data);
+    }
+
+    public function cart($id_ses)
+    {
+        $pesanan_anda =   $this->GeneralModel->getAllPesanan(['id_ses' =>  $id_ses])[$id_ses];
+        $data = [
+            'page' => '/admin/cart',
+            'dataContent' => [
+                'dataSes' => $pesanan_anda
+            ]
+        ];
+        $this->load->view('template_user/index', $data);
+    }
     public function getAllUser()
     {
         try {

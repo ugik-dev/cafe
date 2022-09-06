@@ -1,10 +1,13 @@
 .DS_Store
 
 application/cache/*
+uploads/menu/*
+!uploads/menu/.gitignore
+uploads/qrcode/*
+!uploads/qrcode/.gitignore
 application/config/database.php
 !application/cache/index.html
 
-uploads/menu/*
 .htaccess
 !uploads/menu/.gitignore
 application/logs/*

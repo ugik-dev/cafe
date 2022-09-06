@@ -9,8 +9,8 @@
                     </div>
                 </a>
                 <div class="open-time">
-                    <h6><i class="icofont-clock-time"></i> Open Now</h6>
-                    <span>8AM - 10PM</span>
+                    <!-- <h6><i class="icofont-clock-time"></i> Open Now</h6> -->
+                    <!-- <span>8AM - 10PM</span> -->
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="icofont-navigation-menu"></i>
@@ -19,10 +19,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav navbar-custom">
                         <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Home </a>
+                            <a class="nav-link" href="<?= base_url() ?>">Home </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
+                            <a class="nav-link" href="<?= base_url('#about') ?>l">About</a>
                         </li>
                         <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -39,7 +39,7 @@
                         </li>
                         <?php if (!empty($this->session->userdata()['pemesanan'])) { ?>
                             <li class="nav-item">
-                                <span class="nav-link"><a href="<?= base_url('order') ?>"> <i class='icofont-restaurant'> </i>Menu</a></span>
+                                <span class="nav-link"><a href="<?= base_url('order') ?>"> <i class='icofont-restaurant'> </i>Pilih Menu</a></span>
                             </li>
                             <li class="nav-item">
                                 <span class="nav-link"><a href="<?= base_url('cart') ?>"> <i class='icofont-cart'> </i>Cart</a></span>

@@ -24,7 +24,7 @@
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="<?= base_url('assets') ?>/css/responsive.css" />
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets') ?>/plugins/DataTables/datatables.min.css" />
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- <script src="<?= base_url('assets') ?>/js/jquery.mask.min.js"></script> -->
     <!-- <script src="https://unpkg.com/imask"></script> -->
     <!-- <script src="jquery.mask.min.js"></script> -->

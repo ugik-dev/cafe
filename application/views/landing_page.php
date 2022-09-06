@@ -44,10 +44,10 @@
                         <img src="<?= base_url('assets') ?>/img/donut.png" class="w-100" alt="" />
                     </div>
                     <h2>
-                        Today’s Special
-                        <span>Surprise For You</span>
+                        Penawaran Spesial
+                        <span>untuk kamu</span>
                     </h2>
-                    <p>
+                    <!-- <p>
                         It is a long established fact that a will distracted readable
                         content of a page when looking at its the layout using Lorem
                         Ipsum is that it has a normal distribution
@@ -76,7 +76,7 @@
                                 <a href="#" class="btn order-btn">Order Now</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -89,20 +89,7 @@
     <div class="container">
         <div class="home-services">
             <div class="form-row">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                    <div class="image-box clearfix">
-                        <div class="box-image float-left">
-                            <img src="<?= base_url('assets') ?>/img/honney.png" alt="" />
-                        </div>
-                        <div class="image-text float-left">
-                            <h2>Choose food</h2>
-                            <p>
-                                It is a long establed fact will distracted readable looking
-                                at layou.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                     <div class="image-box clearfix">
@@ -110,25 +97,35 @@
                             <img src="<?= base_url('assets') ?>/img/macaron.png" alt="" />
                         </div>
                         <div class="image-text float-left">
-                            <h2>place order</h2>
+                            <h2>Pilih Tempat</h2>
                             <p>
-                                It is a long establed fact will distracted readable looking
-                                at layou.
+                                Scan barcode yang tertera pada meja.
                             </p>
                         </div>
                     </div>
                 </div>
-
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="image-box clearfix">
+                        <div class="box-image float-left">
+                            <img src="<?= base_url('assets') ?>/img/honney.png" alt="" />
+                        </div>
+                        <div class="image-text float-left">
+                            <h2>Pilih Menu</h2>
+                            <p>
+                                klik dan pesan menu kesukaan anda.
+                            </p>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                     <div class="image-box clearfix">
                         <div class="box-image float-left">
                             <img src="<?= base_url('assets') ?>/img/dinner.png" alt="" />
                         </div>
                         <div class="image-text float-left">
-                            <h2>Receive & go</h2>
+                            <h2>Happy food</h2>
                             <p>
-                                It is a long establed fact will distracted readable looking
-                                at layou.
+                                Pesanan anda akan masuk antrian dan akan dibuat.
                             </p>
                         </div>
                     </div>
@@ -145,10 +142,9 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="menu-head text-center">
-                    <h2>Regular Menu’s of <span>Hotte.</span></h2>
+                    <h2>Menu andalan <span>Siguntang <br>Cafe & Resto</span></h2>
                     <p>
-                        There are many variations of passages of Lorem Ipsum available
-                        but majority have suffered alteration injected humour
+                        Berikut merupakan beberapa menu andalan kami
                     </p>
                 </div>
             </div>

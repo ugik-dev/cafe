@@ -56,6 +56,7 @@ $route['logout'] = 'user/logout';
 $route['meja/(:num)'] = 'home/order_meja/$1';
 $route['order/(:any)'] = 'home/order/$1';
 $route['order'] = 'home/order_process';
+$route['order_post'] = 'home/order_post';
 $route['cart'] = 'home/cart';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

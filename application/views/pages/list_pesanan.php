@@ -16,6 +16,90 @@
    <div class="blog-section">
        <div class="container">
            <div class="table-responsive">
+               <div class="row">
+
+                   <div class="col-lg-6">
+                       <div class="row">
+                           <div class="col-lg-5">
+                               <h4 class="mb-1">
+                                   Meja
+                               </h4>
+                           </div>
+                           <div class="col">:</div>
+                           <div class="col-lg-6"><?= $dataContent['dataSes']['nama_meja'] ?></div>
+                       </div>
+                   </div>
+                   <div class="col-lg-6">
+                       <div class="row">
+                           <div class="col-lg-5">
+                               <h4 class="mb-1">
+                                   Nama Pemesan
+                               </h4>
+                           </div>
+                           <div class="col">:</div>
+                           <div class="col-lg-6"><?= $dataContent['dataSes']['nama_pemesan'] ?></div>
+                       </div>
+                   </div>
+
+
+                   <div class="col-lg-6">
+                       <div class="row">
+                           <div class="col-lg-5">
+                               <h4 class="mb-1">
+                                   Status Pembayaran
+                               </h4>
+                           </div>
+                           <div class="col">:</div>
+                           <div class="col-lg-6"><b><?= statusSession($dataContent['dataSes']['ses_status']) ?></b></div>
+                       </div>
+                   </div>
+                   <div class="col-lg-6">
+                       <div class="row">
+                           <div class="col-lg-5">
+                               <h4 class="mb-1">
+                                   Waktu Pemesanan
+                               </h4>
+                           </div>
+                           <div class="col">:</div>
+                           <div class="col-lg-6"><?= $dataContent['dataSes']['waktu'] ?></div>
+                       </div>
+                   </div>
+                   <div class="col-lg-6">
+                       <div class="row">
+                           <div class="col-lg-5">
+                               <h4 class="mb-1">
+                                   Device
+                               </h4>
+                           </div>
+                           <div class="col">:</div>
+                           <div class="col-lg-6"><?= $dataContent['dataSes']['mobile_type'] . '<br>' . $dataContent['dataSes']['ip_address'] ?></div>
+                       </div>
+                   </div>
+                   <?php if ($dataContent['dataSes']['ses_status'] == 1) { ?>
+                       <div class="col-lg-6">
+                           <div class="row">
+                               <div class="col-lg-5">
+                                   <h4 class="mb-1">
+                                       Waktu Pembayaran
+                                   </h4>
+                               </div>
+                               <div class="col">:</div>
+                               <div class="col-lg-6"><?= $dataContent['dataSes']['waktu_pembayaran'] ?></div>
+                           </div>
+                       </div>
+                       <div class="col-lg-6">
+                           <div class="row">
+                               <div class="col-lg-5">
+                                   <h4 class="mb-1">
+                                       Kasir
+                                   </h4>
+                               </div>
+                               <div class="col">:</div>
+                               <div class="col-lg-6"><?= $dataContent['dataSes']['penerima'] ?></div>
+                           </div>
+                       </div>
+                   <?php } ?>
+               </div> <a type="submit" class="btn submit-btn" href="<?= base_url('order') ?>"><i class="icofont-plus "></i> Tambah Pesanan</a>
                <table id="FDataTable" class="table table-bordered table-hover" style="padding:0px">
                    <thead>
                        <tr>
