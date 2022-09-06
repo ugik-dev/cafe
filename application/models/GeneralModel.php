@@ -80,7 +80,7 @@ class GeneralModel extends CI_Model
     public function getAllPesanan($filter = [])
     {
         // die();
-        $this->db->select("u.*, m.*, p.*, ud.nama as nama_dapur");
+        $this->db->select("u.*, m.*, p.id_pesanan, p.id_menu, p.qyt, p.status_pesanan, harga_pesanan, nama_pesanan, waktu_pesanan, dapur_id, ud.nama as nama_dapur");
         $this->db->from('ses_pemesanan as u');
         $this->db->join('meja as m', 'm.id_meja = u.id_meja', 'LEFT');
         $this->db->join('pesanan as p', 'p.id_ses = u.id_ses', 'LEFT');

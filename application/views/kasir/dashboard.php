@@ -37,7 +37,6 @@
                 <thead>
                     <tr>
                         <th style="width: 24%; text-align:center!important">Waktu</th>
-                        <th style="width: 16%; text-align:center!important">Token</th>
                         <th style="width: 16%; text-align:center!important">Status</th>
                         <th style="width: 16%; text-align:center!important">Meja</th>
                         <th style="width: 16%; text-align:center!important">Nama Pemesan</th>
@@ -63,7 +62,7 @@
         var add_barcode = $('#add_barcode');
         var dataPesanan = [];
         var FDataTable = $('#FDataTable').DataTable({
-            //    '': [],
+            caption: 's', //    '': [],
             deferRender: true,
             // 'order': false,
             //    'order': false,
@@ -163,7 +162,7 @@
                                 <a target="_blank" class="btn btn-info" href='<?= base_url('kasir/qrcode/') ?>${user['id_ses']}' title="Cetak QR Code"><i class="icofont-qr-code"></i></a>
                             `;
                 var pesanManual = `
-                                <a class="btn btn-info" href='<?= base_url('order/') ?>${user['token']}' title="Pesan Manual by Kasir"><i class="icofont-restaurant"></i></a>
+                                <a target="_blank" class="btn btn-info" href='<?= base_url('order/') ?>${user['token']}' title="Pesan Manual by Kasir"><i class="icofont-restaurant"></i></a>
                             `;
                 var button = `
                                 <div class="btn-group" opd="group">
@@ -174,15 +173,8 @@
                                 </div>
                                 </div>
                             `;
-                test = `
-                <a href='<?= base_url('order/') ?>` + user['token'] + `' > ` + user['token'] + `</a>
-                <a href='<?= base_url('kasir/qrcode/') ?>` + user['id_ses'] + `' >` + user['token'] + `</a>
-                `;
 
-                pesan_by_kasir = `
-                <a href='<?= base_url('order/') ?>` + user['token'] + `' > ` + user['token'] + `</a>
-                `;
-                renderData.push([user['waktu'], user['token'] + test, statusPembayaran(user['ses_status']), user['nama_meja'], user['nama_pemesan'], user['total_qyt'], convertToRupiah(user['total_harga']), openDetail + cetakQR + pesanManual]);
+                renderData.push([user['waktu'], statusPembayaran(user['ses_status']), user['nama_meja'], user['nama_pemesan'], user['total_qyt'], convertToRupiah(user['total_harga']), openDetail + cetakQR + pesanManual]);
             });
             FDataTable.clear().rows.add(renderData).draw('full-hold');
             total_harga.html(convertToRupiah(total));

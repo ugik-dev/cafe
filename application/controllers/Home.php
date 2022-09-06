@@ -74,7 +74,7 @@ class Home extends CI_Controller
             $data_sess = $this->GeneralModel->getSesPemesanan(['id_ses' => $data_sess['id_ses']])[$data_sess['id_ses']];
             // echo json_encode($data_sess);
             // die();
-            if ($data_sess['status'] != 1)
+            if ($data_sess['ses_status'] != 1)
                 $data = [
                     'page' => 'pages/pilih_menu',
                     'dataContent' => [
@@ -137,6 +137,8 @@ class Home extends CI_Controller
         if (!empty($this->session->userdata()['pemesanan'])) {
             $id_ses = $this->session->userdata()['pemesanan']['id_ses'];
             $pesanan_anda =   $this->GeneralModel->getAllPesanan(['id_ses' =>  $id_ses]);
+            // echo json_encode($pesanan_anda);
+            // die();
             if (!empty($pesanan_anda))
                 $data = [
                     'page' => '/pages/list_pesanan',

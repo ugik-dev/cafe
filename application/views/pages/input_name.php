@@ -22,14 +22,15 @@
                                  <label for="" class="form-label">
                                      <h4> Nama Pemesan </h4>
                                  </label>
-                                 <input type="text" class="form-control" id="nama_pemesan" name="nama_pemesan" aria-describedby="">
-                                 <input type="hidden" class="form-control" id="token" name="token" value="<?= $dataContent['dataSes']['token'] ?>">
+                                 <input required type="text" placeholder="Masukkan nama anda" class="form-control" id="nama_pemesan" name="nama_pemesan" aria-describedby="">
+                                 <input required type="hidden" class="form-control" id="token" name="token" value="<?= $dataContent['dataSes']['token'] ?>">
                              </div>
                              <div class="mb-1">
                                  <label for="exampleInputEmail1" class="form-label">
                                      <h4> Meja </h4>
                                  </label>
-                                 <select style="width:100% " class="select2 form-control " id="id_meja" name="id_meja">
+                                 <select required style="width:100% " class="select2 form-control " placeholder="Pilih Meja" id="id_meja" name="id_meja">
+                                     <option value=""></option>
                                      <?php foreach ($dataContent['dataMeja'] as $m) {
                                             echo "<option value='" . $m['id_meja'] . "'>" . $m['nama_meja'] . "</option>";
                                         } ?>
