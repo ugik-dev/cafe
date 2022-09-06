@@ -109,7 +109,7 @@
                            <th style="width: 16%; text-align:center!important">Status</th>
                            <th style="width: 16%; text-align:center!important">Jumlah</th>
                            <th style="width: 16%; text-align:center!important">Harga</th>
-                           <th style="width: 16%; text-align:center!important">Total</th>
+                           <th style="width: 16%; text-align:center!important">Jumlah</th>
                            <!-- <th style="width: 16%; text-align:center!important">Status</th>
                            <th style="width: 5%; text-align:center!important">Action</th> -->
                        </tr>
@@ -117,7 +117,15 @@
                    <tbody></tbody>
                    <thead>
                        <tr>
-                           <th colspan="4">Total</th>
+                           <th colspan="4" style=" text-align:right">Sub Total</th>
+                           <th colspan="1" id="sub_total"></th>
+                       </tr>
+                       <tr>
+                           <th colspan="4" style=" text-align:right">Pajak 10%</th>
+                           <th colspan="1" id="pajak"></th>
+                       </tr>
+                       <tr>
+                           <th colspan="4" style=" text-align:right">Total</th>
                            <th colspan="1" id="total_harga"></th>
                        </tr>
                    </thead>
@@ -127,6 +135,9 @@
        <script>
            $(document).ready(function() {
                var total_harga = $('#total_harga');
+               var sub_total = $('#sub_total');
+               var pajak = $('#pajak');
+
                var FDataTable = $('#FDataTable').DataTable({
                    //    '': [],
                    deferRender: true,
@@ -189,7 +200,10 @@
                        renderData.push([user['nama_pesanan'], statusPesanan(user['status_pesanan']), user['qyt'], convertToRupiah(user['harga_pesanan']), convertToRupiah(user['harga_pesanan'] * user['qyt'])]);
                    });
                    FDataTable.clear().rows.add(renderData).draw('full-hold');
-                   total_harga.html(convertToRupiah(total));
+                   sub_total.html(convertToRupiah(total));
+                   pjk = 0.1 * total;
+                   pajak.html(convertToRupiah(pjk));
+                   total_harga.html(convertToRupiah(total + pjk));
 
                }
            })
