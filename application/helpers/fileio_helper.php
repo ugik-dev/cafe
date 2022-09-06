@@ -104,22 +104,22 @@ class FileIO
     FileIO::delete($field, $oldFilename);
   }
 
-  public static function genericUpload($field, $allowedType, $oldData = NULL, $data)
-  {
-    $filename = NULL;
-    $filename = !empty($_FILES[$field]['name']) ? FileIO::upload($field, $field, NULL, $allowedType)['filename'] : (!empty($oldData[$field]) ? $oldData[$field] : NULL);
-    $filename = !empty($data["delete_{$field}"]) ? FileIO::delete("/uploads/{$field}/" . $data["delete_{$field}"]) : $filename;
-    return $filename;
-  }
+  // public static function genericUpload($field, $allowedType, $oldData = NULL, $data)
+  // {
+  //   $filename = NULL;
+  //   $filename = !empty($_FILES[$field]['name']) ? FileIO::upload($field, $field, NULL, $allowedType)['filename'] : (!empty($oldData[$field]) ? $oldData[$field] : NULL);
+  //   $filename = !empty($data["delete_{$field}"]) ? FileIO::delete("/uploads/{$field}/" . $data["delete_{$field}"]) : $filename;
+  //   return $filename;
+  // }
 
-  public static function genericReUpload($field , $allowedType, $oldData = NULL, $data)
-  {
-    $field = 're_upload_dokumen';
-    // var_dump($data);
-    // throw new UserException($_FILES[$field]['name'], UPLOAD_FAILED_CODE);
-    $filename = NULL;
-    $filename = !empty($_FILES[$field]['name']) ? FileIO::upload2($field, $data['parm'], NULL, $allowedType)['filename'] : (!empty($oldData[$field]) ? $oldData[$field] : NULL);
-    $filename = !empty($data["delete_{$field}"]) ? FileIO::delete("/uploads/{$field}/" . $data["delete_{$field}"]) : $filename;
-    return $filename;
-  }
+  // public static function genericReUpload($field, $allowedType, $oldData = NULL, $data)
+  // {
+  //   $field = 're_upload_dokumen';
+  //   // var_dump($data);
+  //   // throw new UserException($_FILES[$field]['name'], UPLOAD_FAILED_CODE);
+  //   $filename = NULL;
+  //   $filename = !empty($_FILES[$field]['name']) ? FileIO::upload2($field, $data['parm'], NULL, $allowedType)['filename'] : (!empty($oldData[$field]) ? $oldData[$field] : NULL);
+  //   $filename = !empty($data["delete_{$field}"]) ? FileIO::delete("/uploads/{$field}/" . $data["delete_{$field}"]) : $filename;
+  //   return $filename;
+  // }
 }

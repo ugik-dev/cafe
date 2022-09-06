@@ -19,27 +19,27 @@ class DataStructure
     return $temp_array;
   }
 
-  public static function arrayNotUnique($raw_array)
-  {
-    $dupes = array();
-    natcasesort($raw_array);
-    reset($raw_array);
+  // public static function arrayNotUnique($raw_array)
+  // {
+  //   $dupes = array();
+  //   natcasesort($raw_array);
+  //   reset($raw_array);
 
-    $old_key   = NULL;
-    $old_value = NULL;
-    foreach ($raw_array as $key => $value) {
-      if ($value === NULL) {
-        continue;
-      }
-      if (strcasecmp($old_value, $value) === 0) {
-        $dupes[$old_key] = $old_value;
-        $dupes[$key]     = $value;
-      }
-      $old_value = $value;
-      $old_key   = $key;
-    }
-    return $dupes;
-  }
+  //   $old_key   = NULL;
+  //   $old_value = NULL;
+  //   foreach ($raw_array as $key => $value) {
+  //     if ($value === NULL) {
+  //       continue;
+  //     }
+  //     if (strcasecmp($old_value, $value) === 0) {
+  //       $dupes[$old_key] = $old_value;
+  //       $dupes[$key]     = $value;
+  //     }
+  //     $old_value = $value;
+  //     $old_key   = $key;
+  //   }
+  //   return $dupes;
+  // }
 
   public static function to2DArray($data, $key, $idName = NULL)
   {
@@ -298,18 +298,18 @@ class DataStructure
   // arr: [{a: '###', b: 'wp'}, {a: 'gg', b: '###'}, {a: 'yy', b: '###'}]
   // value: ###
   // output: [{a: 'gg'}, {b: 'tt'}, {a: 'yy''}]
-  public static function deleteColumnWhere($arr = array(), $value)
-  {
-    $ret = array();
-    foreach ($arr as $a) {
-      $item = array();
-      foreach ($a as $cname => $cvalue) {
-        if ($cvalue != $value) {
-          $item[$cname] = $cvalue;
-        }
-      }
-      $ret[] = $item;
-    }
-    return $ret;
-  }
+  // public static function deleteColumnWhere($arr = array(), $value)
+  // {
+  //   $ret = array();
+  //   foreach ($arr as $a) {
+  //     $item = array();
+  //     foreach ($a as $cname => $cvalue) {
+  //       if ($cvalue != $value) {
+  //         $item[$cname] = $cvalue;
+  //       }
+  //     }
+  //     $ret[] = $item;
+  //   }
+  //   return $ret;
+  // }
 }
