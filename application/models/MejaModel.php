@@ -12,6 +12,7 @@ class MejaModel extends CI_Model
         $this->db->from('meja as u');
         if (!empty($filter['id_meja'])) $this->db->where('id_meja', $filter['id_meja']);
         if (!empty($filter['code'])) $this->db->where('code', $filter['code']);
+        if (!empty($filter['status'])) $this->db->where('status', $filter['status']);
         if (!empty($filter['limit'])) $this->db->limit($filter['limit']);
         $res = $this->db->get();
         if ($DataStructure) return DataStructure::keyValue($res->result_array(), 'id_meja');

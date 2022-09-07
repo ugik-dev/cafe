@@ -20,6 +20,9 @@
                                     <th style="width: 7%; text-align:center!important">ID</th>
                                     <!-- <th style="width: 24%; text-align:center!important">Menuname</th> -->
                                     <th style="width: 24%; text-align:center!important">Nama</th>
+                                    <th style="width: 24%; text-align:center!important">Kategori</th>
+                                    <th style="width: 24%; text-align:center!important">Rek</th>
+                                    <th style="width: 24%; text-align:center!important">Promo</th>
                                     <th style="width: 16%; text-align:center!important">Harga</th>
                                     <th style="width: 16%; text-align:center!important">Gambar</th>
                                     <th style="width: 16%; text-align:center!important">Status</th>
@@ -36,7 +39,7 @@
 </div>
 
 <div class="modal inmodal" id="user_modal" tabindex="-1" opd="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content animated fadeIn">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -54,18 +57,64 @@
                         <label for="harga">Harga</label>
                         <input type="text" placeholder="" class="form-control mask" id="harga" name="harga">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="status">Kategori</label>
                         <select class="form-control mr-sm-2" name="id_kategori" id="id_kategori" required="required">
                         </select>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="status">Kategori</label>
+                                <select class="form-control mr-sm-2" name="id_kategori" id="id_kategori" required="required">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select class="form-control mr-sm-2" name="status" id="status" required="required">
+                                    <option value="1">Active</option>
+                                    <option value="2">Non Active</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="avaliable">Avaliable</label>
+                                <select class="form-control mr-sm-2" name="avaliable" id="avaliable" required="required">
+                                    <option value="Y">Tersedia</option>
+                                    <option value="N">Tidak Tersedia</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="rekomendasi">Rekomendasi</label>
+                                <select class="form-control mr-sm-2" name="rekomendasi" id="rekomendasi" required="required">
+                                    <option value="N">Tidak</option>
+                                    <option value="Y">Ya</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="promo">Promo</label>
+                                <select class="form-control mr-sm-2" name="promo" id="promo" required="required">
+                                    <option value="N">Tidak</option>
+                                    <option value="Y">Ya</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="diskon">Potongan Harga/Diskon (Rp)</label>
+                                <input class="form-control mr-sm-2" name="diskon" id="diskon">
+
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <select class="form-control mr-sm-2" name="status" id="status" required="required">
-                            <option value="1">Active</option>
-                            <option value="2">Non Active</option>
-                        </select>
-                    </div>
+
                     <div class="form-group">
                         <label for="dokumen_buyer">Upload Gambar</label>
                         <input class="form-control" type="file" id="file_gambar" name="file_gambar">
@@ -114,6 +163,9 @@
             'id_kategori': $('#user_modal').find('#id_kategori'),
             'harga': $('#user_modal').find('#harga'),
             'status': $('#user_modal').find('#status'),
+            'rekomendasi': $('#user_modal').find('#rekomendasi'),
+            'promo': $('#user_modal').find('#promo'),
+            'diskon': $('#user_modal').find('#diskon'),
             // 'gambar': new FileUploader($('#user_modal').find('#gambar'), "", "gambar", ".png , .jpg , .jpeg", false, true),
 
         }
@@ -144,8 +196,8 @@
         })
         Swal.showLoading();
         $.when(getAllKategori(), getAllMenu()).then((e) => {
-            toolbar.newBtn.prop('disabled', false);
             Swal.close();
+            toolbar.newBtn.prop('disabled', false);
         }).fail((e) => {
             console.log(e)
         });
@@ -231,7 +283,7 @@
                                     </div>
                                     </div>
                                 `;
-                renderData.push([user['id_menu'], user['nama_menu'], user['harga'], user['gambar'] != '' ? '<img style="width: 100px" src="<?= base_url('uploads/menu/') ?>' + user['gambar'] + '">' : '', user['status'] == 1 ? 'Active' : 'Non Active', button]);
+                renderData.push([user['id_menu'], user['nama_menu'], user['nama_kategori'], user['rekomendasi'], user['promo'], user['diskon'] > 0 ? ('<del style="text-decoration-style: double;">' + user['harga'] + '</del><br>' + user['diskon']) : user['harga'], user['gambar'] != '' ? '<img style="width: 100px" src="<?= base_url('uploads/menu/') ?>' + user['gambar'] + '">' : '', (user['status'] == 1 ? 'Active' : 'Non Active') + (user['avaliable'] == 'Y' ? '<br>Tersedia' : '<br>Tidak Tersedia'), button]);
             });
             FDataTable.clear().rows.add(renderData).draw('full-hold');
         }
@@ -261,6 +313,9 @@
             MenuModal.harga.val(currentData['harga']);
             MenuModal.id_kategori.val(currentData['id_kategori']);
             MenuModal.status.val(currentData['status']);
+            MenuModal.rekomendasi.val(currentData['rekomendasi']);
+            MenuModal.promo.val(currentData['promo']);
+            MenuModal.diskon.val(currentData['diskon']);
         });
 
         // var dengan_rupiah = document.getElementById('dengan-rupiah');

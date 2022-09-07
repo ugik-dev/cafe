@@ -72,14 +72,13 @@ class Home extends CI_Controller
         } else {
             $data_sess = $this->session->userdata()['pemesanan'];
             $data_sess = $this->GeneralModel->getSesPemesanan(['id_ses' => $data_sess['id_ses']])[$data_sess['id_ses']];
-            // echo json_encode($data_sess);
-            // die();
             if ($data_sess['ses_status'] != 1)
                 $data = [
                     'page' => 'pages/pilih_menu',
                     'dataContent' => [
-                        'dataSes' => $data_sess
-                    ]
+                        'dataSes' => $data_sess,
+                        'kategori' => $this->GeneralModel->getAllKategori([], FALSE)
+                    ],
                 ];
             else {
                 $data = [
@@ -90,6 +89,8 @@ class Home extends CI_Controller
                     ]
                 ];
             }
+            // echo json_encode($data);
+            // die();
             $this->load->view('template/index', $data);
         }
         // } else {
@@ -177,7 +178,7 @@ class Home extends CI_Controller
         // var_dump($this->session->userdata());
         $this->load->model('MejaModel');
         $dataSess = $this->GeneralModel->cekToken(['date' => date('Y-m-d'), 'token' => $code]);
-        $meja = $this->MejaModel->getAllMeja();
+        $meja = $this->MejaModel->getAllMeja(['status' => '1']);
         if (!empty($dataSess)) {
             if (!empty($dataSess[0]['id_meja'] && !empty($dataSess[0]['nama_pemesan']))) {
                 $data_pemesan = [
@@ -206,18 +207,6 @@ class Home extends CI_Controller
 
             ];
         }
-        $this->load->view('template/index', $data);
-    }
-
-    public function pilih_menu()
-    {
-        // var_dump($this->session->userdata());
-        $data = [
-            'page' => '/pages/pilih_menu',
-            'dataContent' => [
-                // 'nama_meja' => $id
-            ]
-        ];
         $this->load->view('template/index', $data);
     }
 }

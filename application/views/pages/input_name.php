@@ -29,7 +29,7 @@
                                  <label for="exampleInputEmail1" class="form-label">
                                      <h4> Meja </h4>
                                  </label>
-                                 <select required style="width:100% " class="select2 form-control " placeholder="Pilih Meja" id="id_meja" name="id_meja">
+                                 <select required style="width:100% " class=" form-control " placeholder="Pilih Meja" id="id_meja" name="id_meja">
                                      <option value=""></option>
                                      <?php foreach ($dataContent['dataMeja'] as $m) {
                                             echo "<option value='" . $m['id_meja'] . "'>" . $m['nama_meja'] . "</option>";
@@ -48,11 +48,3 @@
          </div>
      </div>
  </div>
-
- <script>
-     $(document).ready(function() {
-         $('.select2').select2({
-             placeholder: 'Select an option'
-         });
-     });
- </script>

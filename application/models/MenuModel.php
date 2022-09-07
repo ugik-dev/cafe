@@ -14,6 +14,14 @@ class menuModel extends CI_Model
         if (!empty($filter['id_menu'])) $this->db->where('id_menu', $filter['id_menu']);
         if (!empty($filter['status'])) $this->db->where('status', $filter['status']);
         if (!empty($filter['limit'])) $this->db->limit($filter['limit']);
+        if (!empty($filter['sort'])) {
+            $this->db->order_by('promo', 'DESC');
+            $this->db->order_by('rekomendasi', 'DESC');
+            // $this->db->order_by('ASC');
+        }
+        if (!empty($filter['res_array'])) {
+            $DataStructure = false;
+        }
         $res = $this->db->get();
         if ($DataStructure) return DataStructure::keyValue($res->result_array(), 'id_menu');
         else return $res->result_array();
@@ -23,7 +31,7 @@ class menuModel extends CI_Model
     {
 
         $this->db->insert('menu', DataStructure::slice($data, [
-            'nama_menu',  'id_kategori', 'harga', 'gambar', 'status'
+            'nama_menu',  'id_kategori', 'harga', 'gambar', 'status', 'rekomendasi', 'promo', 'diskon', 'avaliable'
         ], TRUE));
         ExceptionHandler::handleDBError($this->db->error(), "Tambah menu", "menu");
 
@@ -37,7 +45,7 @@ class menuModel extends CI_Model
 
     public function editmenu($data)
     {
-        $this->db->set(DataStructure::slice($data, ['nama_menu',  'id_kategori', 'harga', 'gambar', 'status']));
+        $this->db->set(DataStructure::slice($data, ['nama_menu',  'id_kategori', 'harga', 'gambar', 'status', 'rekomendasi', 'promo', 'diskon', 'avaliable']));
         $this->db->where('id_menu', $data['id_menu']);
         $this->db->update('menu');
 

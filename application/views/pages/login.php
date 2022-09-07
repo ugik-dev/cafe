@@ -62,7 +62,7 @@
                    success: (data) => {
                        json = JSON.parse(data);
                        if (json['error']) {
-                           swal("Login Gagal", json['message'], "error");
+                           Swal.fire("Login Gagal", json['message'], "error");
                            return;
                        }
                        $(location).attr('href', '<?= base_url() ?>' + json['user']['nama_controller']);

@@ -3,14 +3,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class GeneralModel extends CI_Model
 {
-    public function getAllKategori($filter = [])
+    public function getAllKategori($filter = [], $by_id = true)
     {
         $this->db->select("*");
 
         $this->db->from('kategori as u');
         if (!empty($filter['id_kategori'])) $this->db->where('id_kategori', $filter['id_kategori']);
+        $this->db->order_by('no_urut', 'ASC');
         $res = $this->db->get();
-        return DataStructure::keyValue($res->result_array(), 'id_kategori');
+        if ($by_id) return DataStructure::keyValue($res->result_array(), 'id_kategori');
+        return $res->result_array();
     }
 
     public function getSesPemesanan($filter = [], $key = false)
