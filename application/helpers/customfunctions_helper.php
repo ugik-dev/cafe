@@ -32,3 +32,22 @@ if (!function_exists('statusSession')) {
       return "<i class='icofont-restaurant text-success'> Sudah dibayar</i>";
   }
 }
+
+if (!function_exists('JamBuka')) {
+  function JamBuka($cur = false)
+  {
+    $ci = &get_instance();
+    $ci->db->select('*');
+    $ci->db->from('jam_buka');
+    if ($cur) {
+      $ci->db->where('hari', date('N'));
+      $cur_time = date("h:i");
+      $ci->db->where('TIME(jam_start) <= "' . $cur_time . '"');
+      $ci->db->where('TIME(jam_end) >= "' . $cur_time . '"');
+    }
+
+    $res = $ci->db->get();
+    $res = $res->result_array();
+    return $res;
+  }
+}

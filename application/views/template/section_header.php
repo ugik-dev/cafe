@@ -9,8 +9,20 @@
                     </div>
                 </a>
                 <div class="open-time">
-                    <!-- <h6><i class="icofont-clock-time"></i> Open Now</h6> -->
-                    <!-- <span>8AM - 10PM</span> -->
+                    <?php
+                    $hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum`at', 'Sabtu', 'Minggu'];
+                    $cur_jam = JamBuka(true);
+                    if (!empty($cur_jam)) {
+                        $cur_jam = $cur_jam[0];
+                    ?>
+                        <h6><i class="icofont-clock-time"></i> Open Now</h6>
+                        <span><?= substr($cur_jam['jam_start'], 0, 5) . ' - ' . substr($cur_jam['jam_end'], 0, 5) ?></span>
+
+                    <?php
+                    } else {
+                        echo '<h6><i class="icofont-clock-time"></i> Close Now</h6>';
+                    }
+                    ?>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="icofont-navigation-menu"></i>
@@ -47,7 +59,7 @@
                         <?php } else { ?>
                         <?php } ?>
                         <li class="nav-item last-menu-bg">
-                            <span class="nav-link"><a href="#">+2 364 98 672</a></span>
+                            <span class="nav-link"><a href="https://wa.me/6281291831994"> <i class="icofont-whatsapp"></i> +6281291831994</a></span>
                         </li>
                     </ul>
                 </div>
