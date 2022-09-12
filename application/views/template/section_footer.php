@@ -37,19 +37,19 @@
                     <div class="contact-info d-flex align-items-center">
                         <div class="icon"><i class="icofont-whatsapp"></i></div>
                         <div class="info">
-                            <a href="https://wa.me/6281291831994">+62 812 9183 1994</a>
+                            <a target="_blank" href="https://wa.me/6281291831994">+62 812 9183 1994</a>
                         </div>
                     </div>
                     <div class="contact-info d-flex align-items-center">
                         <div class="icon"><i class="icofont-instagram"></i></div>
                         <div class="info">
-                            <a href="https://instagram.com/siguntang_cafferesto">@siguntang_cafferesto</a>
+                            <a target="_blank" href="https://instagram.com/siguntang_cafferesto">@siguntang_cafferesto</a>
                         </div>
                     </div>
                     <div class="contact-info d-flex align-items-center">
                         <div class="icon"><i class="icofont-google-map"></i></div>
                         <div class="info">
-                            <a href="#">Jl. Bharata Blok J No.2, <br>
+                            <a target="_blank" href="https://goo.gl/maps/tDvCMZNEEBViEy2o8">Jl. Bharata Blok J No.2, <br>
                                 Perumnas Bumi Telukjambe Ds. Sukalayu Kec. Telukjambe Timur, Kab. Kawarang</a>
                         </div>
                     </div>
