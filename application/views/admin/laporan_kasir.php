@@ -126,7 +126,7 @@
                                 <a class="konfirmasi-bayar dropdown-item" data-id='${user['id_ses']}'><i class='fa fa-pencil'></i>Konfirmasi Bayar</a>
                             `;
                 var openDetail = `
-                                <a class="btn btn-success" href='<?= base_url('admin/cart/') ?>${user['id_ses']}'><i class='fa fa-trash'></i>Open</a>
+                                <a class="btn btn-success" href='<?= base_url('kasir/cart/') ?>${user['id_ses']}'><i class='fa fa-trash'></i>Open</a>
                             `;
                 var button = `
                                 <div class="btn-group" opd="group">

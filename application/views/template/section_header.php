@@ -47,7 +47,7 @@
                             </div>
                         </li> -->
                         <li class="nav-item">
-                            <a class="nav-link" href="http://localhost:85/apri_cafe/order/91293jsadaue2198jasdj123">Contact</a>
+                            <a class="nav-link" href="#contact">Contact</a>
                         </li>
                         <?php if (!empty($this->session->userdata()['pemesanan'])) { ?>
                             <li class="nav-item">

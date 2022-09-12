@@ -1,5 +1,5 @@
 <!--FOOTER TOP SECTION START-->
-<div class="footer-top">
+<div class="footer-top" id="contact">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
@@ -94,7 +94,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
                 <div class="copyright-txt">
-                    <p>Copyright 2020. All Rights Reserved.</p>
+                    <p>Copyright 2022 @ Siguntang Cafe & Resto.</p>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">

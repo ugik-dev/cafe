@@ -13,6 +13,8 @@ class Home extends CI_Controller
 
     public function index()
     {
+        // HotOffer();
+        // die();
         $data = [
             'page' => 'landing_page'
         ];

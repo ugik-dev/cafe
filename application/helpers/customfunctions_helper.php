@@ -51,3 +51,53 @@ if (!function_exists('JamBuka')) {
     return $res;
   }
 }
+
+
+if (!function_exists('HotOffer')) {
+  function HotOffer()
+  {
+    $ci = &get_instance();
+    $ci->db->select('*');
+    $ci->db->from('menu');
+    // if ($cur) {
+    // $ci->db->where('speca', 'Y');
+    $ci->db->where('spesial', 'Y');
+
+    $ci->db->limit(1);
+
+    //   $cur_time = date("h:i");
+    //   $ci->db->where('TIME(jam_start) <= "' . $cur_time . '"');
+    //   $ci->db->where('TIME(jam_end) >= "' . $cur_time . '"');
+    // }
+
+    $res = $ci->db->get();
+    $res = $res->result_array();
+    if (!empty($res))
+      $ret['spesial'] = $res[0];
+    else {
+      $ci = &get_instance();
+      $ci->db->select('*');
+      $ci->db->from('menu');
+      $ci->db->where('promo', 'Y');
+      $ci->db->limit(1);
+      $res = $ci->db->get();
+      $res = $res->result_array();
+      if (!empty($res))
+        $ret['spesial'] = $res[0];
+    }
+
+    $ci = &get_instance();
+    // $ci->db->select('spesial,promo,rekomendasi');
+    $ci->db->from('menu');
+    // $ci->db->where('promo', 'Y');
+    $ci->db->limit(6);
+    $ci->db->order_by('spesial,promo,rekomendasi', 'DESC');
+
+    $res = $ci->db->get();
+    $res = $res->result_array();
+    $ret['promo'] = $res;
+    // echo $ci->db->last_query();
+    return $ret;
+    // echo json_encode($ret);
+  }
+}

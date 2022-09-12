@@ -13,6 +13,7 @@
 <!-- main.js -->
 <script src="<?= base_url('assets') ?>/js/main.js"></script>
 <script type="text/javascript" src="<?= base_url('assets') ?>/plugins/DataTables/datatables.min.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>assets/plugins/input-mask/jquery.mask.min.js"></script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

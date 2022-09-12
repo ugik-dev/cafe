@@ -154,7 +154,7 @@
                      </div>
                      <div class="form-group">
                          <label for="code">Uang Diterima</label>
-                         <input type="text" class="form-control" id="uang_diterima" name="uang_diterima">
+                         <input type="text" class="form-control mask" id="uang_diterima" name="uang_diterima">
                      </div>
                      <div class="form-group">
                          <label for="code">Kembalian</label>
@@ -177,6 +177,7 @@
          var pajak = $('#pajak');
          var total = 0;
          var btn_bayar = $('#btn_bayar');
+         var status_pem = false;
          var PembayaranModal = {
              'self': $('#pembayaran_modal'),
              'info': $('#pembayaran_modal').find('.info'),
@@ -257,62 +258,70 @@
              var_pajak = 0.1 * var_sub_total;
              total = var_sub_total + var_pajak;
              console.log(total);
-             pajak.html(convertToRupiah(var_pajak));
-             sub_total.html(convertToRupiah(var_sub_total));
-             total_harga.html(convertToRupiah(total));
+             pajak.html(convertToRupiah(var_pajak, '.'));
+             sub_total.html(convertToRupiah(var_sub_total, '.'));
+             total_harga.html(convertToRupiah(total, '.'));
 
          }
-
+         $('.mask').mask('000.000.000.000.000', {
+             reverse: true
+         });
          btn_bayar.on('click', function() {
              console.log('bayar')
              PembayaranModal.self.show();
-             PembayaranModal.total_tagihan.val(convertToRupiah(total));
-             PembayaranModal.sub_total.val(convertToRupiah(var_sub_total));
-             PembayaranModal.pajak.val(convertToRupiah(var_pajak));
+             PembayaranModal.total_tagihan.val(convertToRupiah(total, '.'));
+             PembayaranModal.sub_total.val(convertToRupiah(var_sub_total, '.'));
+             PembayaranModal.pajak.val(convertToRupiah(var_pajak, '.'));
          });
 
          PembayaranModal.form.on('submit', function() {
              event.preventDefault();
              var url = "<?= site_url('Kasir/konfirmasi_bayar') ?>";
+             if (status_pem)
+                 $.ajax({
+                     url: url,
+                     'type': 'POST',
+                     data: PembayaranModal.form.serialize(),
 
-             $.ajax({
-                 url: url,
-                 'type': 'POST',
-                 data: PembayaranModal.form.serialize(),
-
-                 success: function(data) {
-                     // buttonIdle(button);
-                     var json = JSON.parse(data);
-                     if (json['error']) {
-                         swal("Pembayaran Gagal", json['message'], "error");
-                         return;
-                     }
-                     var user = json['data']
-                     //  dataUser[user['id_menu']] = user;
-                     Swal.fire({
-                         title: 'Berhasil!',
-                         html: 'Data Pembayaran Berhasil.',
-                         icon: 'success',
-                     })
-                     window.open(
-                         '<?= base_url('kasir/cetak/') . $dataContent['dataSes']['id_ses'] ?>',
-                         '_blank' // <- This is what makes it open in a new window.
-                     );
-                     location.reload();
-                     //  renderUser(dataUser);
-                     //  UserModal.self.modal('hide');
-                 },
-                 error: function(e) {}
-             });
+                     success: function(data) {
+                         // buttonIdle(button);
+                         var json = JSON.parse(data);
+                         if (json['error']) {
+                             swal("Pembayaran Gagal", json['message'], "error");
+                             return;
+                         }
+                         var user = json['data']
+                         //  dataUser[user['id_menu']] = user;
+                         Swal.fire({
+                             title: 'Berhasil!',
+                             html: 'Data Pembayaran Berhasil.',
+                             icon: 'success',
+                         })
+                         window.open(
+                             '<?= base_url('kasir/cetak/') . $dataContent['dataSes']['id_ses'] ?>',
+                             '_blank' // <- This is what makes it open in a new window.
+                         );
+                         location.reload();
+                         //  renderUser(dataUser);
+                         //  UserModal.self.modal('hide');
+                     },
+                     error: function(e) {}
+                 });
+             else
+                 Swal.fire("Pembayaran Gagal", "Uang yang dibayar kurang", "error");
              //  });
          })
          PembayaranModal.uang_diterima.on('keyup', function() {
              console.log('ss');
-             tmp_kembalian = total - PembayaranModal.uang_diterima.val();
+             uang_diterimaNew = PembayaranModal.uang_diterima.val().replace(/\./g, "");
+             tmp_kembalian = total - uang_diterimaNew;
+
              console.log(tmp_kembalian)
-             if (tmp_kembalian < 0) {
-                 PembayaranModal.kembalian.val(convertToRupiah(Math.abs(total - PembayaranModal.uang_diterima.val())));
+             if (tmp_kembalian <= 0) {
+                 status_pem = true;
+                 PembayaranModal.kembalian.val(convertToRupiah(Math.abs(tmp_kembalian), '.'));
              } else {
+                 status_pem = false;
                  PembayaranModal.kembalian.val(0);
              }
          })

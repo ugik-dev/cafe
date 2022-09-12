@@ -28,8 +28,8 @@
     <!-- <script src="<?= base_url('assets') ?>/js/jquery.mask.min.js"></script> -->
     <!-- <script src="https://unpkg.com/imask"></script> -->
     <!-- <script src="jquery.mask.min.js"></script> -->
-
     <script src="<?= base_url('assets') ?>/js/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/input-mask/jquery.mask.min.js">
     <script src="<?= base_url('assets') ?>/js/custom.js?v=0.0.1"></script>
 
 

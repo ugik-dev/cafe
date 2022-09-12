@@ -34,8 +34,11 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-sm-12 col-md-5 col-lg-6 col-xl-6">
+                <?php
+                $menu_l = HotOffer();
+                ?>
                 <div class="special-img">
-                    <img src="<?= base_url('assets') ?>/img/Todayspecialimg.png" class="w-100" alt="" />
+                    <img src="<?= base_url('uploads/menu/' . $menu_l['spesial']['gambar']) ?>" class="w-100" alt="" />
                 </div>
             </div>
             <div class="col-sm-12 col-md-7 col-lg-6 col-xl-6">
@@ -150,41 +153,50 @@
             </div>
         </div>
         <div class="row food-box">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div class="food-menu text-center">
-                    <div class="food-img-info">
-                        <div class="food-img">
-                            <img src="<?= base_url('assets') ?>/img/food1.png" class="w-100" alt="" />
-                        </div>
-                        <div class="overlay text-left">
-                            <h4>Ingredients</h4>
-                            <span>½ tbsp olive oil</span>
-                            <span>1 onion, peeled and finely chopped</span>
-                            <span>1 tsp mixed dried herbs</span>
-                            <span>1 egg, beaten</span>
-                            <span> 4 slices mature Cheddar (optional)</span>
-                        </div>
-                    </div>
-                    <div class="food-informaion">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <h2>Chicken Burger</h2>
+            <?php foreach ($menu_l['promo'] as $p) { ?>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div class="food-menu text-center">
+                        <div class="food-img-info">
+                            <div class="food-img">
+                                <img src="<?= base_url('uploads/menu/' . $p['gambar']) ?>" class="w-100" style="height : 100px !important" alt="" />
                             </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <div class="food-info text-left">
-                                    <span><i class="icofont-clock-time"></i> 25 min away</span>
-                                    <h3><span>$</span>89.00</h3>
+                            <!-- <div class="overlay text-left">
+                                <h4>Ingredients</h4>
+                                <span>½ tbsp olive oil</span>
+                                <span>1 onion, peeled and finely chopped</span>
+                                <span>1 tsp mixed dried herbs</span>
+                                <span>1 egg, beaten</span>
+                                <span> 4 slices mature Cheddar (optional)</span>
+                            </div> -->
+                        </div>
+                        <div class="food-informaion">
+                            <div class="row align-items-center">
+                                <div class="col-12">
+                                    <h2><?= $p['nama_menu'] ?></h2>
                                 </div>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
-                                <a href="#" class="btn order-btn2">Order Now</a>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <div class="food-info text-left">
+                                        <!-- <span><i class="icofont-clock-time"></i> 25 min away</span> -->
+
+                                        <h3><?php if ($p['promo'] == 'Y') {
+                                                echo '<small><del style="text-decoration-style: single; font-size: 15px">Rp ' . number_format($p['harga']) . ' </del></small><br>';
+                                                echo '<span>Rp</span> ' . number_format($p['harga'] - $p['diskon']);
+                                            } else
+                                                echo '<span>Rp</span> ' . number_format($p['harga']);
+
+                                            ?>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
+                                    <a href="#" class="btn order-btn2">Order Now</a>
+                                </div> -->
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+            <?php } ?>
+            <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
                 <div class="food-menu text-center">
                     <div class="food-img-info">
                         <div class="food-img">
@@ -216,150 +228,15 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div class="food-menu text-center">
-                    <div class="food-img-info">
-                        <div class="food-img">
-                            <img src="<?= base_url('assets') ?>/img/food3.png" class="w-100" alt="" />
-                        </div>
-                        <div class="overlay text-left">
-                            <h4>Ingredients</h4>
-                            <span>½ tbsp olive oil</span>
-                            <span>1 onion, peeled and finely chopped</span>
-                            <span>1 tsp mixed dried herbs</span>
-                            <span>1 egg, beaten</span>
-                            <span> 4 slices mature Cheddar (optional)</span>
-                        </div>
-                    </div>
-                    <div class="food-informaion">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <h2>Chicken Fry Pack</h2>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <div class="food-info text-left">
-                                    <span><i class="icofont-clock-time"></i> 25 min away</span>
-                                    <h3><span>$</span>74.00</h3>
-                                </div>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
-                                <a href="#" class="btn order-btn2">Order Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div class="food-menu text-center">
-                    <div class="food-img-info">
-                        <div class="food-img">
-                            <img src="<?= base_url('assets') ?>/img/food4.png" class="w-100" alt="" />
-                        </div>
-                        <div class="overlay text-left">
-                            <h4>Ingredients</h4>
-                            <span>½ tbsp olive oil</span>
-                            <span>1 onion, peeled and finely chopped</span>
-                            <span>1 tsp mixed dried herbs</span>
-                            <span>1 egg, beaten</span>
-                            <span> 4 slices mature Cheddar (optional)</span>
-                        </div>
-                    </div>
-                    <div class="food-informaion">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <h2>Hotte Sendwise</h2>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <div class="food-info text-left">
-                                    <span><i class="icofont-clock-time"></i> 25 min away</span>
-                                    <h3><span>$</span>25.00</h3>
-                                </div>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
-                                <a href="#" class="btn order-btn2">Order Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div class="food-menu text-center">
-                    <div class="food-img-info">
-                        <div class="food-img">
-                            <img src="<?= base_url('assets') ?>/img/food5.png" class="w-100" alt="" />
-                        </div>
-                        <div class="overlay text-left">
-                            <h4>Ingredients</h4>
-                            <span>½ tbsp olive oil</span>
-                            <span>1 onion, peeled and finely chopped</span>
-                            <span>1 tsp mixed dried herbs</span>
-                            <span>1 egg, beaten</span>
-                            <span> 4 slices mature Cheddar (optional)</span>
-                        </div>
-                    </div>
-                    <div class="food-informaion">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <h2>Vegetable Roll</h2>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <div class="food-info text-left">
-                                    <span><i class="icofont-clock-time"></i> 25 min away</span>
-                                    <h3><span>$</span>18.00</h3>
-                                </div>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
-                                <a href="#" class="btn order-btn2">Order Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div class="food-menu text-center">
-                    <div class="food-img-info">
-                        <div class="food-img">
-                            <img src="<?= base_url('assets') ?>/img/food6.png" class="w-100" alt="" />
-                        </div>
-                        <div class="overlay text-left">
-                            <h4>Ingredients</h4>
-                            <span>½ tbsp olive oil</span>
-                            <span>1 onion, peeled and finely chopped</span>
-                            <span>1 tsp mixed dried herbs</span>
-                            <span>1 egg, beaten</span>
-                            <span> 4 slices mature Cheddar (optional)</span>
-                        </div>
-                    </div>
-                    <div class="food-informaion">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <h2>French Fry</h2>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <div class="food-info text-left">
-                                    <span><i class="icofont-clock-time"></i> 25 min away</span>
-                                    <h3><span>$</span>16.00</h3>
-                                </div>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
-                                <a href="#" class="btn order-btn2">Order Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
 <!--MENU SECTION END-->
 
 <!--OFFER SECTION START-->
-<div class="offer-section">
+<!-- <div class="offer-section">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -395,11 +272,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!--OFFER SECTION END-->
 
 <!--CUSTOMER SECTION START-->
-<div class="customer-section">
+<!-- <div class="customer-section">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg 12 col-xl-12">
@@ -497,11 +374,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!--CUSTOMER SECTION END-->
 
 <!--TESTY FOOD SECTION START-->
-<div class="testy-section">
+<!-- <div class="testy-section">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 col-lg-6">
@@ -525,5 +402,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!--TESTY FOOD SECTION END-->
