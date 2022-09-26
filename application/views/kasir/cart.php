@@ -85,7 +85,8 @@
              <?php } ?>
          </div>
          <?php if ($dataContent['dataSes']['ses_status'] == 1) { ?>
-             <button type="button" class="btn submit-btn" id="btn_bayar"><i class="icofont-printer mr-2"></i>Cetak</button>
+             <a target="_blank" class="btn submit-btn" href="<?= base_url('kasir/cetak/') . $dataContent['dataSes']['id_ses'] ?>"><i class="icofont-printer mr-2"></i>Cetak</a>
+             <a target="_blank" class=" btn submit-btn" href="<?= base_url('kasir/cetak_pdf/') . $dataContent['dataSes']['id_ses'] ?>"><i class="icofont-file-pdf mr-2"></i>Cetak PDF</a>
          <?php } else { ?>
              <button type="button" class="btn submit-btn" id="btn_bayar"><i class="icofont-bill mr-2"></i>Terima Tembayaran</button>
          <?php } ?>

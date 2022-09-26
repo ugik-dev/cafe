@@ -160,6 +160,7 @@
                             `;
                 var cetakQR = `
                                 <a target="_blank" class="btn btn-info" href='<?= base_url('kasir/qrcode/') ?>${user['id_ses']}' title="Cetak QR Code"><i class="icofont-qr-code"></i></a>
+                               <a target="_blank" class="btn btn-info" href='<?= base_url('kasir/qrcode_pdf/') ?>${user['id_ses']}' title="Cetak QR Code"><i class="icofont-file-pdf"></i></a>
                             `;
                 var pesanManual = `
                                 <a target="_blank" class="btn btn-info" href='<?= base_url('order/') ?>${user['token']}' title="Pesan Manual by Kasir"><i class="icofont-restaurant"></i></a>

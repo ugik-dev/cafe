@@ -128,21 +128,8 @@
             <h2 style="margin-bottom: 0 !important">SIGUNTANG</h2>
             <h5 style="margin-top: 0 !important">Cafe & Resto</h5>
         </div>
-        <!--End Info-->
     </center>
-    <!--End InvoiceTop-->
 
-    <!-- <div id="mid">
-        <div class="info">
-            <h2>Contact Info</h2>
-            <p>
-                Address : street city, state 0000</br>
-                Email : JohnDoe@gmail.com</br>
-                Phone : 555-555-5555</br>
-            </p>
-        </div>
-    </div> -->
-    <!--End Invoice Mid-->
 
     <div id="bot">
 
@@ -249,7 +236,6 @@
 
             </table>
         </div>
-        <!--End Table-->
 
         <div id="legalcopy">
             <p class="legal"><strong>Terimakasih sudah berkunjung!</strong> .
@@ -257,6 +243,16 @@
         </div>
 
     </div>
-    <!--End InvoiceBot-->
 </div>
 <!--End Invoice-->
+
+<script type="text/javascript">
+    setTimeout(function() {
+        window.print();
+    }, 500);
+    window.onfocus = function() {
+        setTimeout(function() {
+            window.close();
+        }, 10);
+    }
+</script>
